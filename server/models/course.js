@@ -16,6 +16,7 @@ const courseSchema = new mongoose.Schema({
     trim: true,
     required: true
   },
+  modules: [String],
   thumbnail: {
     type: String
   }

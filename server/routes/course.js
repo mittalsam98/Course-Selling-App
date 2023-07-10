@@ -3,6 +3,7 @@ const {
   courses,
   course,
   purchaseCourse,
+  purchasedCourse,
   updateCourse,
   createCourse
 } = require('../controllers/course');
@@ -12,6 +13,7 @@ const router = express.Router();
 router.get('/user/courses', courses);
 router.get('/user/course/:courseId', course);
 router.post('/user/course/:courseId', authenticateJwtUser, purchaseCourse);
+router.get('/user/purchased', authenticateJwtUser, purchasedCourse);
 
 router.post('/admin/course/create', authenticateJwtAdmin, createCourse);
 router.put('/admin/courses/:courseId', authenticateJwtAdmin, updateCourse);

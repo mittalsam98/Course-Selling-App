@@ -1,15 +1,15 @@
 import React from 'react';
-import SideBar from './SideBar';
 import Navbar from './Navbar/Navbar';
 import { Outlet } from 'react-router';
 import NavbarAdmin from './Navbar/AdminNavbar';
-import { isAdmin } from '../coreComponents/helper/utils';
+import AdminSideBar from './SideBar/AdminSideBar';
+import UserSideBar from './SideBar/UserSideBar';
 
-export default function Layout() {
+export default function Layout(props) {
   return (
     <div className='h-screen'>
-      {isAdmin() ? <NavbarAdmin /> : <Navbar />}
-      <SideBar />
+      {props.keys === 'adminLayout' ? <NavbarAdmin /> : <Navbar />}
+      {props.keys === 'adminLayout' ? <AdminSideBar /> : <UserSideBar />}
       <div class='sm:ml-64 mx-auto text-center'>
         <Outlet />
       </div>

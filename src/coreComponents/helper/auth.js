@@ -5,10 +5,10 @@ export const signup = (user) => {
   return http
     .post(`api/user/signup`, user)
     .then((response) => {
-      return response.data;
+      success(response?.data?.message);
     })
     .catch((err) => {
-      throw err.response.data;
+      error(err.response?.data?.error);
     });
 };
 
@@ -23,11 +23,10 @@ export const signIn = (user) => {
     })
     .catch((err) => {
       error(err.response?.data?.error);
-      throw err.response.data;
     });
 };
 
-export const authenticate = (data, next) => {
+export const authenticate = (data, next = () => {}) => {
   if (typeof window !== 'undefined') {
     localStorage.setItem('userJwt', data);
     next();
@@ -45,15 +44,3 @@ export const isAuthenticated = () => {
   }
 };
 
-export const signout = (next) => {
-  if (typeof window !== 'undefined') {
-    localStorage.removeItem('userJwt');
-    next();
-
-    return fetch(`api/user/signout`, {
-      method: 'GET'
-    })
-      .then((response) => console.log('signout success'))
-      .catch((err) => console.log(err));
-  }
-};

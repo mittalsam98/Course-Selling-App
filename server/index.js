@@ -6,17 +6,18 @@ const app = express();
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
 const courseRoutes = require('./routes/course');
+const paymentRoutes = require('./routes/payment');
 app.use(bodyParser.json());
 app.use(cors());
 /// Routes
 app.use('/api', authRoutes);
 app.use('/api', courseRoutes);
+app.use('/api', paymentRoutes);
 
 app.get('/ping', function (req, res) {
   return res.send('pong');
 });
 
-console.log('user');
 // Connection
 const PORT = process.env.PORT;
 mongoose
@@ -31,9 +32,6 @@ mongoose
     console.log(e);
   });
 
-app.get('/', (req, res) => {
-  res.send('hello');
-});
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { isAdmin } from './utils';
 
 const http = axios.create({
   baseURL: 'http://localhost:3002',
@@ -11,8 +12,32 @@ const http = axios.create({
 
 // Set the AUTH token for any request
 http.interceptors.request.use(function (config) {
-  const token = localStorage.getItem('jwt');
+  let token;
+  if (isAdmin()) {
+    token = localStorage.getItem('adminJwt');
+  } else {
+    token = localStorage.getItem('userJwt');
+  }
   config.headers.Authorization = token ? `Bearer ${token}` : '';
   return config;
 });
+http.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error?.response?.data.error.includes('Token Expired')) {
+      forceLogout();
+    }
+    return Promise.reject(error);
+  }
+);
+
+const forceLogout = () => {
+  localStorage.clear();
+  setTimeout(() => {
+    window.location.reload();
+  }, 2500);
+};
+
 export default http;

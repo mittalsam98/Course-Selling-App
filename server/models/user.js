@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
   purchasedCourses: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Courses'
+      ref: 'Course'
     }
   ]
 });

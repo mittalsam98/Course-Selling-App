@@ -3,6 +3,8 @@ import { getCourseDetails } from '../coreComponents/helper/apiCalls';
 import { useParams } from 'react-router';
 import TabContent1 from '../components/CourseDetails/TabContent1';
 import TabContent2 from '../components/CourseDetails/TabContent2';
+import BuyNowCard from '../components/BuyNowCard';
+import { isAdmin } from '../coreComponents/helper/utils';
 
 function CourseDetails() {
   const [courseDetail, setCourseDetail] = useState({});
@@ -24,6 +26,7 @@ function CourseDetails() {
   return (
     <>
       <div className='bg-gray-700 py-12 text-4xl text-center text-white'>{courseDetail.name}</div>
+      {!isAdmin() && <BuyNowCard courseDetail={courseDetail} />}
       <div class='border-b mt-6 w-2/5 mx-auto'>
         <nav class='flex'>
           <button

@@ -5,10 +5,10 @@ export const adminSignup = (user) => {
   return http
     .post(`api/admin/signup`, user)
     .then((response) => {
-      return response.data;
+      success(response?.data?.message);
     })
     .catch((err) => {
-      throw err.response.data;
+      error(err.response?.data?.error);
     });
 };
 
@@ -26,9 +26,9 @@ export const adminSignIn = (user) => {
     });
 };
 
-export const authenticate = (data, next) => {
+export const authenticate = (data, next = () => {}) => {
   if (typeof window !== 'undefined') {
-    sessionStorage.setItem('adminJwt', data);
+    localStorage.setItem('adminJwt', data);
     next();
   }
 };
@@ -37,22 +37,9 @@ export const isAdminAuthenticated = () => {
   if (typeof window == 'undefined') {
     return false;
   }
-  if (sessionStorage.getItem('adminJwt')) {
-    return sessionStorage.getItem('adminJwt');
+  if (localStorage.getItem('adminJwt')) {
+    return localStorage.getItem('adminJwt');
   } else {
     return false;
-  }
-};
-
-export const signout = (next) => {
-  if (typeof window !== 'undefined') {
-    sessionStorage.removeItem('adminJwt');
-    next();
-
-    return fetch(`api/admin/signout`, {
-      method: 'GET'
-    })
-      .then((response) => console.log('signout success'))
-      .catch((err) => console.log(err));
   }
 };

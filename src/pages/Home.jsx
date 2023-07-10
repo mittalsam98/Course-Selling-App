@@ -1,7 +1,6 @@
 import React from 'react';
 import mern from '../images/mern.png';
 export default function Home() {
-  console.log('fdasf');
   return (
     <>
       <div className='h-96 mx-auto'>

@@ -54,12 +54,14 @@ const LoginModal = ({ isOpen, onClose }) => {
             title='Email'
             handleChange={handleEmailChange}
             id='email'
+            type='email'
             value={email}
             placeholder='Enter your email'
           />
           <Input
             title='Password'
             handleChange={handlePasswordChange}
+            type='password'
             id='password'
             value={password}
             placeholder='Enter your Password'

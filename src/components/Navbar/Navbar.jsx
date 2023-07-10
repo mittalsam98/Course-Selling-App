@@ -25,9 +25,9 @@ export default function Navbar() {
   return (
     <>
       <div
-        className={`flex items-center justify-between w-full sticky top-0 ${
-          isAuthenticated() ? 'bg-[#E4566E]' : 'bg-white'
-        } border-y py-2 px-8`}
+        className={`flex items-center  justify-between w-full sticky top-0 ${
+          isAuthenticated() ? 'bg-[#E4566E]' : 'bg-gray-50'
+        } border-b py-2 px-8`}
       >
         {!isAuthenticated() ? (
           <div>

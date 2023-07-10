@@ -1,12 +1,17 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { isAdmin } from './helper/utils';
 
 export default function Logout() {
   const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.clear();
-    navigate('/');
+    if (isAdmin()) {
+      navigate('/admin');
+    } else {
+      navigate('/');
+    }
     window.location.reload();
   }, []);
   return;

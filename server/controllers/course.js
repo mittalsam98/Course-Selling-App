@@ -1,7 +1,5 @@
 const Course = require('../models/course');
 const User = require('../models/user');
-const formidable = require('formidable');
-const fs = require('fs');
 
 // User
 exports.courses = async (req, res) => {
@@ -11,20 +9,18 @@ exports.courses = async (req, res) => {
 exports.course = async (req, res) => {
   try {
     const course = await Course.findById(req.params.courseId);
-    console.log(course);
     if (course) {
       res.json({ course });
     } else {
       res.status(404).json({ message: 'Course not found' });
     }
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 
 exports.purchaseCourse = async (req, res) => {
-  console.log(req.params);
-  const course = await Course.findById(req.params.courseId);
+  const course = await Course.findById(req.courseId);
   if (course) {
     const user = await User.findOne({ email: req.user.email });
     if (user) {
@@ -38,7 +34,20 @@ exports.purchaseCourse = async (req, res) => {
     res.status(404).json({ message: 'Course not found' });
   }
 };
+exports.purchasedCourse = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.user.email }).populate('purchasedCourses');
+    if (!user) {
+      res.status(403).json({ error: 'User not found' });
+    } else {
+      res.json({ purchases: user.purchasedCourses });
+    }
+  } catch (e) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
 
+//ADMIN related
 exports.createCourse = async (req, res) => {
   const { name, description, price } = req.body;
 
@@ -47,9 +56,14 @@ exports.createCourse = async (req, res) => {
       error: 'Please include all fields'
     });
   }
-  let course = new Course(req.body);
-  course.save();
-  res.json({ message: 'Course created successfully', courseId: course.id });
+  try {
+    let course = new Course(req.body);
+    const save = await course.save();
+    console.log(save, course);
+    res.status(201).json({ message: 'Course created successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while creating the course' });
+  }
 };
 
 exports.updateCourse = async (req, res) => {

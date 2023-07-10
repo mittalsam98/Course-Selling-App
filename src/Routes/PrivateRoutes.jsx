@@ -1,9 +1,11 @@
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { isAuthenticated } from '../coreComponents/helper/auth';
+import { isAdminAuthenticated } from '../coreComponents/helper/adminAuth.';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+export const PrivateRoute = ({ component: Component, ...rest }) => {
   return isAuthenticated() ? <Component /> : <Navigate to='/' />;
 };
-
-export default PrivateRoute;
+export const AdminPrivateRoute = ({ component: Component, ...rest }) => {
+  return isAdminAuthenticated() ? <Component /> : <Navigate to='/admin' />;
+};

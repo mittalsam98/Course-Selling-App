@@ -26,8 +26,8 @@ export default function NavbarAdmin() {
     <>
       <div
         className={`flex items-center justify-between w-full sticky top-0 ${
-          isAdminAuthenticated() ? 'bg-[#40518A]' : 'bg-white'
-        }  border-y py-3 mt-0 px-8`}
+          isAdminAuthenticated() ? 'bg-[#40518A]' : 'bg-gray-50'
+        }  border-b py-3 mt-0 px-8`}
       >
         {!isAdminAuthenticated() ? (
           <div>
@@ -38,7 +38,7 @@ export default function NavbarAdmin() {
                 handleShow('signup');
               }}
             >
-              Admin Singup
+              Admin Signup
             </button>
             <button
               type='button'

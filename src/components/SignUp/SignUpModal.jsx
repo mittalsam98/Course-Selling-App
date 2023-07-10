@@ -3,6 +3,8 @@ import { ReactComponent as Close } from '../../images/close.svg';
 import { signin, signup } from '../../coreComponents/helper/auth';
 import { error, success } from '../../coreComponents/toaster';
 import Input from '../../coreComponents/Input';
+import { adminSignup } from '../../coreComponents/helper/adminAuth.';
+import { isAdmin } from '../../coreComponents/helper/utils';
 
 const SignUpModal = ({ isOpen, onClose }) => {
   const [values, setValues] = useState({
@@ -10,19 +12,19 @@ const SignUpModal = ({ isOpen, onClose }) => {
     lName: '',
     email: '',
     phoneNo: '',
-    password: ''
+    password: '',
+    secret: ''
   });
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    console.log(id, value);
     setValues((prevValues) => ({
       ...prevValues,
       [id]: value
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const user = {
       email: values.email,
@@ -31,13 +33,13 @@ const SignUpModal = ({ isOpen, onClose }) => {
       phoneNo: values.phoneNo,
       password: values.password
     };
-    signup(user)
-      .then((res) => {
-        success(res?.message);
-      })
-      .catch((err) => {
-        error(err?.error);
-      });
+    if (isAdmin()) {
+      user['secret'] = values.secret;
+      adminSignup(user);
+    } else {
+      await signup(user);
+    }
+
     onClose('signup');
   };
 
@@ -64,6 +66,7 @@ const SignUpModal = ({ isOpen, onClose }) => {
             title='First Name'
             handleChange={handleChange}
             id='fName'
+            type='text'
             value={values.fName}
             placeholder='Enter your First Name'
           />
@@ -71,6 +74,7 @@ const SignUpModal = ({ isOpen, onClose }) => {
             title='Last Name'
             handleChange={handleChange}
             id='lName'
+            type='text'
             value={values.lName}
             placeholder='Enter your Last Name'
           />
@@ -78,6 +82,7 @@ const SignUpModal = ({ isOpen, onClose }) => {
             title='Email'
             handleChange={handleChange}
             id='email'
+            type='email'
             value={values.email}
             placeholder='Enter your email'
           />
@@ -85,6 +90,7 @@ const SignUpModal = ({ isOpen, onClose }) => {
             title='Password'
             handleChange={handleChange}
             id='password'
+            type='password'
             value={values.password}
             placeholder='Enter your Password'
           />
@@ -92,9 +98,20 @@ const SignUpModal = ({ isOpen, onClose }) => {
             title='Phone Number'
             handleChange={handleChange}
             id='phoneNo'
+            type='number'
             value={values.phoneNo}
             placeholder='Enter your number'
           />
+          {isAdmin() && (
+            <Input
+              title='Secret Key '
+              handleChange={handleChange}
+              id='secret'
+              type='text'
+              value={values.secret}
+              placeholder='Enter secret key to become Admin'
+            />
+          )}
           <div className='flex justify-end'>
             <button
               type='submit'
