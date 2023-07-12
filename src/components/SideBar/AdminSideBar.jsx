@@ -1,6 +1,5 @@
 import { ReactComponent as Courses } from '../../images/course.svg';
 import { ReactComponent as Add } from '../../images/add.svg';
-import { ReactComponent as Help } from '../../images/help.svg';
 import { ReactComponent as Logout } from '../../images/logout.svg';
 import { NavLink } from 'react-router-dom';
 import { isAdminAuthenticated } from '../../coreComponents/helper/adminAuth.';

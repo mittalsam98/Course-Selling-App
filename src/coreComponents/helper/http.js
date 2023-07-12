@@ -2,8 +2,8 @@ import axios from 'axios';
 import { isAdmin } from './utils';
 
 const http = axios.create({
-  baseURL: 'http://localhost:3002',
-  timeout: 1000,
+  baseURL: 'https://api-course.vercel.app',
+  timeout: 1000 * 5, // Wait for 5 seconds
   headers: {
     'Content-Type': 'application/json',
     'Cache-Control': 'no-cache'

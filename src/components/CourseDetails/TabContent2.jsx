@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function TabContent2(props) {
-  console.log(props);
   return props?.courseDetail?.modules && props?.courseDetail?.modules.length > 0 ? (
     props.courseDetail.modules.map((ele, index) => {
       return (
@@ -29,6 +28,6 @@ export default function TabContent2(props) {
       );
     })
   ) : (
-    <div>Content is empty currently :)  </div>
+    <div>Content is empty currently :) </div>
   );
 }

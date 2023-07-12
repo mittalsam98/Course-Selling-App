@@ -15,7 +15,7 @@ function Purchases() {
   return (
     <>
       <div className='mt-5 px-12 text-left font-bold text-2xl'>My Purchases</div>
-      {courses.length > 0 ? (
+      {courses && courses.length > 0 ? (
         <div className='grid grid-cols-4 gap-8 py-8 px-12'>
           {courses.map((course) => {
             return <CourseCards course={course} purchased={true} />;

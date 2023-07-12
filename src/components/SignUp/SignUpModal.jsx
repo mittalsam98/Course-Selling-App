@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ReactComponent as Close } from '../../images/close.svg';
-import { signin, signup } from '../../coreComponents/helper/auth';
-import { error, success } from '../../coreComponents/toaster';
+import {  signup } from '../../coreComponents/helper/auth';
 import Input from '../../coreComponents/Input';
 import { adminSignup } from '../../coreComponents/helper/adminAuth.';
 import { isAdmin } from '../../coreComponents/helper/utils';

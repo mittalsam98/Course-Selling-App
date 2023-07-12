@@ -37,9 +37,11 @@ export const createCourse = (course) => {
     .post('api/admin/course/create', course)
     .then((response) => {
       success(response?.data?.message || 'Created');
+      return response?.data?.message;
     })
     .catch((err) => {
       console.log(err);
       error(err?.message || 'Something went wrong');
+      throw err
     });
 };

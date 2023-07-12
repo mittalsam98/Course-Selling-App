@@ -6,6 +6,7 @@ import { createCourse } from '../coreComponents/helper/apiCalls';
 
 function Create() {
   const [inputs, setInputs] = useState([]); // State to store input values
+  const [loading, setLoading] = useState(false); // State to store input values
   const [values, setValues] = useState({
     cName: '',
     description: '',
@@ -37,13 +38,20 @@ function Create() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     let course = {
       name: values.cName,
       description: values.description,
       price: values.price,
       modules: inputs
     };
-    createCourse(course);
+    createCourse(course)
+      .then((response) => {
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -51,7 +59,7 @@ function Create() {
       <div className='text-3xl py-5 font-semibold'>Add Course</div>
       <form onSubmit={handleSubmit}>
         <Input
-          title='Course Name'
+          title='Course Name*'
           handleChange={handleChange}
           id='cName'
           type='text'
@@ -59,7 +67,7 @@ function Create() {
           placeholder='Enter your course title'
         />
         <Input
-          title='Description of Course'
+          title='Description of Course*'
           handleChange={handleChange}
           id='description'
           type='description'
@@ -67,14 +75,27 @@ function Create() {
           placeholder='Brief your course'
         />
         <Input
-          title='Price'
+          title='Price*'
           handleChange={handleChange}
           id='price'
           type='number'
           value={values.price}
           placeholder='Price of the course'
         />
-        <div className='text-2xl py-5 font-semibold'>Add Curriculum</div>
+        <div className='text-2xl py-5 font-semibold'>Add Curriculum*</div>
+        {inputs.length === 0 && (
+          <>
+            <button
+              type='button'
+              onClick={handleAddInput}
+              className='flex items-center justify-center w-8 h-8 bg-blue-200 rounded-full hover:bg-blue-300'
+            >
+              <span>
+                <Add />
+              </span>
+            </button>
+          </>
+        )}
         {inputs.map((input, index) => (
           <div key={index} className='flex items-center justify-between w-full'>
             <Input
@@ -107,7 +128,10 @@ function Create() {
         <div className='flex justify-end'>
           <button
             type='submit'
-            class='bg-blue-600 py-2 px-7 mt-5 w-full mx-auto text-white rounded-3xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-gray-200 '
+            disabled={
+              loading || inputs.length <= 0 || !values.cName || !values.description || !values.price
+            }
+            class='bg-blue-600 py-2 px-7 mt-5 w-full mx-auto text-white rounded-3xl hover:bg-blue-700 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-gray-200 '
           >
             Create Course
           </button>
