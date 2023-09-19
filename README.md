@@ -6,6 +6,8 @@
 This link is for Users only - https://courses-portal.netlify.app/ 
 This link is for admin who can create course - https://courses-portal.netlify.app/admin
 
+### Server Repo
+https://github.com/mittalsam98/course-selling-server/tree/main
 
 ## Key Feature
 - Separate User and Admin panels
