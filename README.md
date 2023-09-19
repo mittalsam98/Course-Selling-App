@@ -3,11 +3,13 @@
 `React JS`, `Tailwind CSS`, `Node JS`, `MongoDB`, `Razorpay` for payments
 
 ### Live preview of the project:
-This link is for Users only - https://courses-portal.netlify.app/ 
-This link is for admin who can create course - https://courses-portal.netlify.app/admin
+This link is for Users only - [User Portal](https://courses-portal.netlify.app/ )
+
+This link is for admin who can create course - [Admin Portal](https://courses-portal.netlify.app/admin)
 
 ### Server Repo
-https://github.com/mittalsam98/course-selling-server/tree/main
+[Github](https://github.com/mittalsam98/course-selling-server/tree/main
+)
 
 ## Key Feature
 - Separate User and Admin panels
@@ -22,7 +24,7 @@ https://github.com/mittalsam98/course-selling-server/tree/main
 - To run this project , pls check the `.env.example` file
 
 ## Screenshots
-![image](https://github.com/mittalsam98/Course-Selling-App/assets/42431274/6c83cb3c-03d6-4d14-86a6-91ea892ed767)
+![image](https://github.com/mittalsam98/Course-Selling-App/assets/42431274/6b066ee1-b8ba-436e-9449-3c432a83e0bd)
 
 ### Hi there 👋 I am Sachin, a full stack web and app developer. I love to build new things that excites me a lot.
 
