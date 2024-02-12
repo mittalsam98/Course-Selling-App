@@ -9,8 +9,14 @@ export default function Layout(props) {
   return (
     <div className='h-screen'>
       {props.keys === 'adminLayout' ? <NavbarAdmin /> : <Navbar />}
-      {props.keys === 'adminLayout' ? <AdminSideBar /> : <UserSideBar />}
-      <div class='sm:ml-64 mx-auto text-center'>
+      <aside
+        id='separator-sidebar'
+        className='w-64 fixed h-screen hidden lg:block'
+        aria-label='Sidebar'
+      >
+        {props.keys === 'adminLayout' ? <AdminSideBar /> : <UserSideBar />}
+      </aside>
+      <div class='lg:ml-64  mx-auto text-center'>
         <Outlet />
       </div>
     </div>

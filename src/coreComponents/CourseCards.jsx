@@ -19,7 +19,9 @@ export default function CourseCards(props) {
   };
   return (
     <div
-      className={`max-w-sm rounded-xl shadow-lg ${props.purchased ? 'bg-slate-100' : 'bg-white'}`}
+      className={`lg:max-w-sm rounded-xl shadow-lg ${
+        props.purchased ? 'bg-slate-100' : 'bg-white'
+      }`}
     >
       <img className='w-full rounded-xl' src={image} alt='Card' />
       <div className='px-6 py-4'>

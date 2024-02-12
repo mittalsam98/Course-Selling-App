@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import SignUpModal from '../SignUp/SignUpModal';
 import LoginModal from '../SignIn/SignInModal';
 import { isAuthenticated } from '../../coreComponents/helper/auth';
+import menu from '../../images/menu.png';
+import UserSideBar from '../SideBar/UserSideBar';
 
 export default function Navbar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const handleClose = (type) => {
     if (type === 'signIn') {
@@ -22,6 +25,10 @@ export default function Navbar() {
     }
   };
 
+  const handleNavbar = () => {
+    setShowSidebar(!showSidebar);
+  };
+
   return (
     <>
       <div
@@ -33,7 +40,7 @@ export default function Navbar() {
           <div>
             <button
               type='button'
-              class='bg-blue-600 py-2 px-7 mr-4 text-white rounded-3xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-gray-200 '
+              class='bg-blue-600 py-1 px-2 mr-1 lg:py-2 lg:px-7 lg:mr-4 text-white rounded-3xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-gray-200 '
               onClick={() => {
                 handleShow('signup');
               }}
@@ -42,17 +49,36 @@ export default function Navbar() {
             </button>
             <button
               type='button'
-              class='bg-blue-600 py-2 px-7 text-white rounded-3xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-gray-200 '
+              class='bg-blue-600 py-1 px-2 lg:py-2 lg:px-7  text-white rounded-3xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-gray-200 '
               onClick={() => {
                 handleShow('signIn');
               }}
             >
               Sign In
-            </button>
+            </button>{' '}
           </div>
         ) : (
           <div className='bg-white p-3 rounded-full'>SM</div>
         )}
+
+        <div className='block lg:hidden'>
+          <button
+            data-collapse-toggle='navbar-default'
+            type='button'
+            aria-controls='navbar-default'
+            aria-expanded='false'
+            onClick={handleNavbar}
+          >
+            <img className='h-[30px] mx-auto' src={menu} alt='Course Selling' />
+          </button>
+          <div
+            className={`fixed top-0 right-0 h-full z-40 w-full ${
+              showSidebar ? 'translate-x-0 ' : 'translate-x-full'
+            }`}
+          >
+            <UserSideBar handleNavbar={handleNavbar} />
+          </div>
+        </div>
       </div>
       {<LoginModal isOpen={showLoginModal} onClose={handleClose} />}
       {<SignUpModal isOpen={showSignUpModal} onClose={handleClose} />}
