@@ -13,6 +13,7 @@ import { isAdminAuthenticated } from '../coreComponents/helper/adminAuth.';
 import { isAuthenticated } from '../coreComponents/helper/auth';
 import { isAdmin } from '../coreComponents/helper/utils';
 import LoggedInWarning from '../components/LoggedInWarning';
+import Setting from '../pages/Setting';
 
 const MyRoutes = () => {
   if ((isAuthenticated() && isAdmin()) || (isAdminAuthenticated() && !isAdmin())) {
@@ -37,7 +38,7 @@ const MyRoutes = () => {
             <Route path='/courses' element={<Courses />} />
             <Route path='/course/:id' element={<CourseDetails />} />
             <Route path='/purchases' element={<PrivateRoute component={Purchases} />} />
-            <Route path='/settings' element={<PrivateRoute component={Purchases} />} />
+            <Route path='/settings' element={<PrivateRoute component={Setting} />} />
             <Route path='/logout' element={<Logout />} />
           </Route>
           {/* Admin Routes */}
